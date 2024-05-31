@@ -1,4 +1,11 @@
 
+export interface CounterState {
+  counter : number
+  text: string;
+}
+
 export const initialState =  {
-  counter : 0
+  counter : 0,
+  text: "Printed counter text"
+
 }
