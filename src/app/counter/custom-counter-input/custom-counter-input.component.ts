@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CounterState } from '../state/counter.state';
-import { customIncrement } from '../state/counter.actions';
+import { counterText, customIncrement } from '../state/counter.actions';
+import { getCounterText } from '../state/counter.selector';
 
 @Component({
   selector: 'app-custom-counter-input',
@@ -11,13 +12,24 @@ import { customIncrement } from '../state/counter.actions';
 export class CustomCounterInputComponent {
 
   counterValue: number;
+  conterText: string;
 
   constructor(private store : Store<{counter: CounterState}>) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.select(getCounterText).subscribe((counterText) => {
+      console.log("check counter text");
+
+      this.conterText = counterText;
+    })
+  }
 
   onCustomIncrement() {
     this.store.dispatch(customIncrement({value : +this.counterValue}));
+  }
+
+  onTextUpdate(){
+    this.store.dispatch(counterText())
   }
 
 }
