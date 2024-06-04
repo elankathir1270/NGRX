@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { Post } from '../state/post.state';
 import { getPosts } from '../state/post.selector';
+import { deletePost } from '../state/post.actions';
 
 @Component({
   selector: 'app-postlist',
@@ -20,5 +21,9 @@ export class PostlistComponent {
       this.posts = res;
     });
   }
-
+  onDeletePost(id: string) {
+    if(confirm("Are you sure want to delete the post")){
+      this.store.dispatch(deletePost({id}))
+    }
+  }
 }

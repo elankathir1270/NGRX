@@ -1,8 +1,8 @@
 <div class="container">
   <div class="flex">
-    <h3>Add Post</h3>
+    <h3>Update Post</h3>
 
-    <form [formGroup]="postForm" (ngSubmit)="onFormSubmit()">
+    <form [formGroup]="updatePostForm" (ngSubmit)="onUpdatedFormSubmit()">
       <div class="flex mb-3">
         <label>Title</label>
         <input type="text" formControlName="title" class="form-control"/>
@@ -12,7 +12,7 @@
         <textarea formControlName="description" class="form-control"></textarea>
       </div>
       <div class="flex mb-3">
-        <button type="submit" class="btn btn-success" [disabled]="!postForm.valid">Add post</button>
+        <button type="submit" class="btn btn-success" [disabled]="!updatePostForm.valid">Update post</button>
       </div>
     </form>
   </div>
