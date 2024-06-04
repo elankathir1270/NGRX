@@ -4,8 +4,8 @@ export interface CounterState {
   text: string;
 }
 
-export const initialState =  {
+export const initialState : CounterState =  {
   counter : 0,
-  text: "Printed counter text"
+  text: "Initial counter text"
 
 }
