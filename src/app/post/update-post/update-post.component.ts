@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { getPostById } from '../state/post.selector';
-import { Post } from '../state/post.state';
+import { Post, PostsState } from '../state/post.state';
 import { updatePost } from '../state/post.actions';
 
 @Component({
@@ -19,7 +19,7 @@ export class UpdatePostComponent {
 
   constructor(
     private activateRoute: ActivatedRoute,
-    private store : Store<AppState>,
+    private store : Store<PostsState>,
     private router : Router
   ) {}
 

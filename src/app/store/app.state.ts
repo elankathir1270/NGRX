@@ -1,18 +1,10 @@
-import { authReducer } from "../auth/state/auth.reducer";
-import { AuthState } from "../auth/state/auth.state";
-import { counterReducer } from "../counter/state/counter.reducer";
-import { CounterState } from "../counter/state/counter.state";
-import { postsReducer } from "../post/state/post.reducer";
-import { PostsState } from "../post/state/post.state";
+import { sharedReducer } from "./shared/shared.reducer";
+import { SharedState } from "./shared/shared.state";
 
 export interface AppState {
-  counter : CounterState,
-  posts : PostsState,
-  auth : AuthState
+  sharedState : SharedState
 }
 
 export const appReducer = {
-  counter : counterReducer,
-  posts : postsReducer,
-  auth: authReducer
+  shared : sharedReducer
 }

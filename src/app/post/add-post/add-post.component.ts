@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Post } from '../state/post.state';
+import { Post, PostsState } from '../state/post.state';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { addPost } from '../state/post.actions';
@@ -15,7 +15,7 @@ export class AddPostComponent {
   postForm: FormGroup;
   post: Post
 
-  constructor(private store: Store<AppState> ){}
+  constructor(private store: Store<PostsState> ){}
 
   ngOnInit() {
     this.postForm = new FormGroup({

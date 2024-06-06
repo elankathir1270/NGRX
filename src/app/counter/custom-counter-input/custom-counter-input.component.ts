@@ -15,7 +15,7 @@ export class CustomCounterInputComponent {
   counterValue: number;
   conterText: string;
 
-  constructor(private store : Store<AppState>) {}
+  constructor(private store : Store<CounterState>) {}
 
   ngOnInit() {
     this.store.select(getCounterText).subscribe((counterText) => {
