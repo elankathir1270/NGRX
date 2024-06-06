@@ -12,7 +12,7 @@ import { AppState } from 'src/app/store/app.state';
 export class CounterButtonsComponent {
 
 
-  constructor(private store : Store<AppState>) {}
+  constructor(private store : Store<CounterState>) {}
 
   onIncrement() {
     this.store.dispatch(increment());

@@ -15,7 +15,7 @@ export class CounterOutputComponent {
   counter: number;
   counter$ : Observable<{counter : number}>;
 
-  constructor(private store : Store<AppState>) {}
+  constructor(private store : Store<CounterState>) {}
 
   ngOnInit() {
 
@@ -25,7 +25,7 @@ export class CounterOutputComponent {
       this.counter = counterNumber;
     })
 
-    this.counter$ = this.store.select('counter');
+    //this.counter$ = this.store.select('counter');
   }
 
 }
