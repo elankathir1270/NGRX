@@ -5,8 +5,6 @@ import { map, mergeMap } from "rxjs";
 import { AuthService } from "src/app/service/auth.service";
 
 
-
-
 @Injectable()
 export class AuthEffects {
 
@@ -16,7 +14,8 @@ export class AuthEffects {
     return this.actions.pipe(ofType(loginStart),mergeMap((action) => {
       //console.log(action.email,action.password);
       return this.authService.login(action.email,action.password).pipe(map((data) => {
-        return loginSuccess();
+        const user = this.authService.formatData(data)
+        return loginSuccess({user});
       }))
     }))
   })
