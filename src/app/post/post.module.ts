@@ -7,6 +7,8 @@ import { UpdatePostComponent } from './update-post/update-post.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { postsReducer } from './state/post.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { PostEffects } from './state/post.effects';
 
 const routes : Routes = [
   {path: "", component : PostlistComponent,
@@ -28,7 +30,8 @@ const routes : Routes = [
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    StoreModule.forFeature('posts',postsReducer)
+    StoreModule.forFeature('posts',postsReducer),
+    EffectsModule.forFeature([PostEffects])
   ]
 })
 export class PostModule { }

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { Post, PostsState } from '../state/post.state';
 import { getPosts } from '../state/post.selector';
-import { deletePost } from '../state/post.actions';
+import { deletePost, loadPost } from '../state/post.actions';
 
 @Component({
   selector: 'app-postlist',
@@ -17,6 +17,7 @@ export class PostlistComponent {
   constructor(private store : Store<PostsState>) {}
 
   ngOnInit() {
+    this.store.dispatch(loadPost());
     this.store.select(getPosts).subscribe((res) => {
       this.posts = res;
     });
