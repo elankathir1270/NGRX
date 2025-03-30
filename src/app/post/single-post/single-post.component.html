@@ -1,0 +1,10 @@
+<div>Post Details</div>
+<div *ngIf="post$ | async as post">
+  <div>ID:</div>
+  <div>{{ post.id }}</div>
+  <div>TITLE:</div>
+  <div>{{ post.title }}</div>
+  <div>DESCRIPTION:</div>
+  <div>{{ post.description }}</div>
+</div>
+<div><a routerLink="/postlist">Back to Post</a></div>

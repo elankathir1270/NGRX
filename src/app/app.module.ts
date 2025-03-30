@@ -14,7 +14,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthEffects } from './auth/state/auth.effects';
 import { AuthTokenInterceptor } from './service/auth-token.interceptor';
-
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { CustomSerializer } from './store/router/custom-serilizer';
 
 @NgModule({
   declarations: [
@@ -39,8 +40,13 @@ import { AuthTokenInterceptor } from './service/auth-token.interceptor';
       traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
       //connectInZone: true // If set to true, the connection is established within the Angular zone
     }),
+    StoreRouterConnectingModule.forRoot({
+      serializer: CustomSerializer,
+    }),
   ],
-  providers: [{provide : HTTP_INTERCEPTORS, useClass : AuthTokenInterceptor, multi : true}],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
