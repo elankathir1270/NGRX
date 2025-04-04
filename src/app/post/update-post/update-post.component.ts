@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
-import { getPostById, getPostByIdByRoute } from '../state/post.selector';
+import { getPostByIdByRoute } from '../state/post.selector';
 import { Post, PostsState } from '../state/post.state';
 import { updatePost } from '../state/post.actions';
 import { getCurrentRoute } from 'src/app/store/router/route-selector';

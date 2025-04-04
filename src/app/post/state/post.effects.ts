@@ -5,18 +5,28 @@ import {
   addPostSuccess,
   deletePost,
   deletePostSuccess,
+  dummyAction,
   loadPost,
   loadPostSuccess,
   updatePost,
   updatePostSuccess,
 } from './post.actions';
-import { filter, map, mergeMap, switchMap } from 'rxjs';
+import { filter, map, mergeMap, of, switchMap, withLatestFrom } from 'rxjs';
 import { PostService } from 'src/app/service/post.service';
 import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
+import { Update } from '@ngrx/entity';
+import { Post, PostsState } from './post.state';
+import { AppState } from 'src/app/store/app.state';
+import { Store } from '@ngrx/store';
+import { getPosts } from './post.selector';
 
 @Injectable()
 export class PostEffects {
-  constructor(private actions: Actions, private postService: PostService) {}
+  constructor(
+    private actions: Actions,
+    private postService: PostService,
+    private store: Store<PostsState>
+  ) {}
 
   loadPost = createEffect(() => {
     return this.actions.pipe(
@@ -53,7 +63,14 @@ export class PostEffects {
       mergeMap((action) => {
         return this.postService.updatePost(action.post).pipe(
           map((data) => {
-            return updatePostSuccess({ post: action.post });
+            const updatedPost: Update<Post> = {
+              id: action.post.id,
+              changes: { ...action.post },
+            };
+
+            //After Entity Implementation
+            return updatePostSuccess({ post: updatedPost });
+            //return updatePostSuccess({ post: action.post });
           })
         );
       })
@@ -82,13 +99,17 @@ export class PostEffects {
       map((r: RouterNavigationAction) => {
         return r.payload.routerState['params']['id'];
       }),
-      switchMap((id) => {
-        return this.postService.getPostById(id).pipe(
-          map((post) => {
-            const postData = [{ ...post, id }];
-            return loadPostSuccess({ posts: postData });
-          })
-        );
+      withLatestFrom(this.store.select(getPosts)), // this is to avoid redundant api call
+      switchMap(([id, posts]) => {
+        if (!posts.length) {
+          return this.postService.getPostById(id).pipe(
+            map((post) => {
+              const postData = [{ ...post, id }];
+              return loadPostSuccess({ posts: postData });
+            })
+          );
+        }
+        return of(dummyAction());
       })
     );
   });
